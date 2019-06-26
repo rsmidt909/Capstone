@@ -18,6 +18,8 @@ namespace Domain
         public string State { get; set; }
         public int ZipCode { get; set; }
         public int PhoneNumber { get; set; }
+        public Filters Filters { get; set; }
+        public int NumberOfSystems { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
