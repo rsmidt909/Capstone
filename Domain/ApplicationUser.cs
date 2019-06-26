@@ -14,7 +14,7 @@ namespace Domain
         public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int ZipCode { get; set; }
+        public double ZipCode { get; set; }
         public double Phone { get; set; }
     }
 }

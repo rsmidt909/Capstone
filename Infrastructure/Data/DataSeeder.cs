@@ -10,14 +10,14 @@ namespace Infrastructure.Data
 {
     public class DataSeeder
     {
-        public static void Initialize(ApplicationDbContext context,
+        public static async Task Initialize(ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {
             context.Database.EnsureCreated();
-
-            String adminId1 = "";
-            String adminId2 = "";
+            
+            string adminId1 = "";
+            string adminId2 = "";
 
             string role1 = "Admin";
             string desc1 = "This is the Administrator role";
@@ -26,31 +26,41 @@ namespace Infrastructure.Data
 
             string password = "Password1!";
 
-            if (roleManager.FindByNameAsync(role1) == null)
+            if (await roleManager.FindByNameAsync(role1) == null)           
             {
-                roleManager.CreateAsync(new ApplicationRole(role1, desc1, DateTime.Now));
+                await roleManager.CreateAsync(new ApplicationRole(role1, desc1, DateTime.Now));
             }
-            if (roleManager.FindByNameAsync(role2) == null)
+            if (await roleManager.FindByNameAsync(role2) == null)
             {
-                roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
+                await roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
             }
 
-            if (userManager.FindByNameAsync("test@test.com") == null)
+            if (await userManager.FindByNameAsync("test@test.com") == null)            
             {
+                
                 var user = new ApplicationUser
                 {
+                    Email = "test@test.com",
                     FirstName = "Wesley",
                     LastName = "Yawn",
                     StreetAddress = "1808 Eclipse Cv",
                     City = "Austin",
                     State = "Tx",
                     ZipCode = 78723,
-                    Phone = 2542542544
+                    Phone = 2542542554
                 };
-                var result = userManager.CreateAsync(user);                              
-                userManager.AddPasswordAsync(user, password);
-                userManager.AddToRoleAsync(user, role1);               
+
+                var result = await userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    await userManager.AddPasswordAsync(user, password);
+                    await userManager.AddToRoleAsync(user, role1);
+                }
+                //context.Admins.Add(user);
+                //context.SaveChanges();
+
                 adminId1 = user.Id;
+
 
             }
 

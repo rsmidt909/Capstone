@@ -14,5 +14,8 @@ namespace Yawn.Data
             : base(options)
         {
         }
+        public DbSet<ApplicationRole> Role { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Admin> Admins { get; set; }
     }
 }
