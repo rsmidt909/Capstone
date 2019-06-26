@@ -13,7 +13,7 @@ using Yawn.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Domain;
-
+using Infrastructure.Data;
 
 namespace Yawn
 {
@@ -22,6 +22,7 @@ namespace Yawn
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -50,7 +51,7 @@ namespace Yawn
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ApplicationDbContext context,RoleManager<ApplicationRole>roleManager,UserManager<ApplicationUser>userManager)
         {
             if (env.IsDevelopment())
             {
@@ -76,7 +77,10 @@ namespace Yawn
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DataSeeder.Initialize();
+            //DataSeeder.Initialize(context, userManager,roleManager);
+            
+            
         }
+        
     }
 }

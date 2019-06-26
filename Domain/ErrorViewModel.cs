@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Yawn.Models
+namespace Domain
 {
     public class ErrorViewModel
     {

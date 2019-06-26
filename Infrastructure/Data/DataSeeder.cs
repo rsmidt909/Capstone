@@ -8,9 +8,9 @@ using Yawn.Data;
 
 namespace Infrastructure.Data
 {
-    class DataSeeder
+    public class DataSeeder
     {
-        public static async Task Initialize(ApplicationDbContext context,
+        public static void Initialize(ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {
@@ -26,16 +26,16 @@ namespace Infrastructure.Data
 
             string password = "Password1!";
 
-            if (await roleManager.FindByNameAsync(role1) == null)
+            if (roleManager.FindByNameAsync(role1) == null)
             {
-                await roleManager.CreateAsync(new ApplicationRole(role1, desc1, DateTime.Now));
+                roleManager.CreateAsync(new ApplicationRole(role1, desc1, DateTime.Now));
             }
-            if (await roleManager.FindByNameAsync(role2) == null)
+            if (roleManager.FindByNameAsync(role2) == null)
             {
-                await roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
+                roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
             }
 
-            if (await userManager.FindByNameAsync("test@test.com") == null)
+            if (userManager.FindByNameAsync("test@test.com") == null)
             {
                 var user = new ApplicationUser
                 {
@@ -47,12 +47,9 @@ namespace Infrastructure.Data
                     ZipCode = 78723,
                     Phone = 2542542544
                 };
-                var result = await userManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    await userManager.AddPasswordAsync(user, password);
-                    await userManager.AddToRoleAsync(user, role1);
-                }
+                var result = userManager.CreateAsync(user);                              
+                userManager.AddPasswordAsync(user, password);
+                userManager.AddToRoleAsync(user, role1);               
                 adminId1 = user.Id;
 
             }
