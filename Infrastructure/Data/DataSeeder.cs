@@ -40,14 +40,14 @@ namespace Infrastructure.Data
                 
                 var user = new ApplicationUser
                 {
-                    Email = "test@test.com",
-                    FirstName = "Wesley",
-                    LastName = "Yawn",
-                    StreetAddress = "1808 Eclipse Cv",
-                    City = "Austin",
-                    State = "Tx",
-                    ZipCode = 78723,
-                    Phone = 2542542554
+                    //Email = "test@test.com",
+                    //FirstName = "Wesley",
+                    //LastName = "Yawn",
+                    //StreetAddress = "1808 Eclipse Cv",
+                    //City = "Austin",
+                    //State = "Tx",
+                    //ZipCode = 78723,
+                    //Phone = 2542542554
                 };
 
                 var result = await userManager.CreateAsync(user);

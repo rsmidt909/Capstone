@@ -10,12 +10,15 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Yawn.Data;
 
 namespace Yawn.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    
+    public class RegisterModel : PageModel        
     {
+        
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -56,48 +59,48 @@ namespace Yawn.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            [StringLength(100,ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [DataType(DataType.Text)]
-            [MaxLength(80)]
-            [Display(Name = "Street Address")]
-            public string StreetAddress { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            [Display(Name = "City")]
-            public string City { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [DataType(DataType.Text)]
-            [MaxLength(2)]
-            [Display(Name = "State")]
-            public string State { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            [Display(Name = "Zip Code")]
-            public double ZipCode { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            [Display(Name = "Phone Number")]
-            public double Phone { get; set; }
+            //[Required]
+            //[StringLength(100,ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(50)]
+            //[Display(Name = "First Name")]
+            //public string FirstName { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(50)]
+            //[Display(Name = "Last Name")]
+            //public string LastName { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(80)]
+            //[Display(Name = "Street Address")]
+            //public string StreetAddress { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(50)]
+            //[Display(Name = "City")]
+            //public string City { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(2)]
+            //[Display(Name = "State")]
+            //public string State { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(50)]
+            //[Display(Name = "Zip Code")]
+            //public double ZipCode { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
+            //[DataType(DataType.Text)]
+            //[MaxLength(50)]
+            //[Display(Name = "Phone Number")]
+            //public double Phone { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -114,15 +117,11 @@ namespace Yawn.Areas.Identity.Pages.Account
                 var user = new ApplicationUser
                 {
                     UserName = Input.Email,
-                    Email = Input.Email,
-                    FirstName = Input.FirstName,
-                    LastName = Input.LastName,
-                    StreetAddress = Input.StreetAddress,
-                    City = Input.City,
-                    State = Input.State,
-                    ZipCode = Input.ZipCode,
-                    Phone = Input.Phone
+                    Email = Input.Email,                    
+                    RoleString = "Customer"
                 };
+                
+                
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -139,7 +138,8 @@ namespace Yawn.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    //return LocalRedirect(returnUrl);
+                    return RedirectToAction("Create", "Customer");
                 }
                 foreach (var error in result.Errors)
                 {

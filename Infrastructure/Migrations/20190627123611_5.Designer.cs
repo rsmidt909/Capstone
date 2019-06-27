@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yawn.Data;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190627123611_5")]
+    partial class _5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,6 +75,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -80,6 +84,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -93,18 +101,24 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("PasswordHash");
 
+                    b.Property<double>("Phone");
+
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RoleString");
-
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("StreetAddress");
 
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<double>("ZipCode");
 
                     b.HasKey("Id");
 
@@ -139,13 +153,13 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("NumberOfSystems");
 
-                    b.Property<double>("PhoneNumber");
+                    b.Property<int>("PhoneNumber");
 
                     b.Property<string>("State");
 
                     b.Property<string>("StreetAddress");
 
-                    b.Property<double>("ZipCode");
+                    b.Property<int>("ZipCode");
 
                     b.HasKey("id");
 

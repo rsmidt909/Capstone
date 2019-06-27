@@ -78,7 +78,7 @@ namespace Yawn
             });
 
             //DataSeeder.Initialize(context, userManager,roleManager).Wait();
-            DataSeeder.Initialize(context, userManager,roleManager).Wait();
+            //DataSeeder.Initialize(context, userManager,roleManager).Wait();
 
 
 
