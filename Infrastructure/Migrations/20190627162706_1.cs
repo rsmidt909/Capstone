@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class _3 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,13 +43,7 @@ namespace Infrastructure.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    StreetAddress = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    State = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<double>(nullable: false),
-                    Phone = table.Column<double>(nullable: false)
+                    RoleString = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -194,8 +188,10 @@ namespace Infrastructure.Migrations
                     StreetAddress = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<int>(nullable: false),
-                    PhoneNumber = table.Column<int>(nullable: false),
+                    ZipCode = table.Column<double>(nullable: false),
+                    PhoneNumber = table.Column<double>(nullable: false),
+                    Filters = table.Column<string>(nullable: true),
+                    NumberOfSystems = table.Column<int>(nullable: false),
                     ApplicationId = table.Column<string>(nullable: true),
                     ApplicationRoleId = table.Column<string>(nullable: true)
                 },

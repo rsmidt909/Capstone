@@ -35,22 +35,25 @@ namespace Yawn.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
-            return View();
+            Customer customer = new Customer();
+            return View(customer);
         }
 
         // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([Bind("FirstName","LastName","StreetAddress","City","State","ZipCode","PhoneNumber","Filters","NumberOfSystems","ApplicationId")]Customer customer)
         {
             try
             {
                 // TODO: Add insert logic here
-                _context.Add(collection);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.ApplicationId = userId;
+                _context.Add(customer);
                 _context.SaveChanges();
 
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Customer");
             }
             catch
             {
@@ -79,7 +82,7 @@ namespace Yawn.Controllers
                 _context.Update(customer);
                 _context.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Customer");
                 }
                 catch
                 {
@@ -109,6 +112,17 @@ namespace Yawn.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Service()
+        {
+            Customer customer = GetLoggedInUser();
+            return View(customer);
+        }
+        public ActionResult Checks()
+        {
+            Customer customer = GetLoggedInUser();
+            return View(customer);
         }
 
         public Customer GetLoggedInUser()

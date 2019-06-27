@@ -1,7 +1,15 @@
-﻿
+﻿@model Domain.Customer
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Welcome @Model.FirstName</h2>
 
+<center>
+    <h3>Is something wrong with your system? Click on the button below to get started!</h3>
+    <li><a asp-area="" asp-controller="Customer" asp-action="Service">Service Call</a></li>
+
+
+    <h3>Just need your seasonal check up? Click on the button below to get started!</h3>
+    <li><a asp-area="" asp-controller="Customer" asp-action="Checks" >Seasonal Check</a></li>
+</center>

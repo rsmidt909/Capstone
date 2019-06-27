@@ -131,7 +131,7 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<int?>("Filtersid");
+                    b.Property<string>("Filters");
 
                     b.Property<string>("FirstName");
 
@@ -153,24 +153,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ApplicationRoleId");
 
-                    b.HasIndex("Filtersid");
-
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("Domain.Filters", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("NumberOfFilters");
-
-                    b.Property<string>("SizeOfFilters");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Filters");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -279,10 +262,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.ApplicationRole", "ApplicationRole")
                         .WithMany()
                         .HasForeignKey("ApplicationRoleId");
-
-                    b.HasOne("Domain.Filters", "Filters")
-                        .WithMany()
-                        .HasForeignKey("Filtersid");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -18,7 +18,7 @@ namespace Domain
         public string State { get; set; }
         public double ZipCode { get; set; }
         public double PhoneNumber { get; set; }
-        public Filters Filters { get; set; }
+        public string Filters { get; set; }
         public int NumberOfSystems { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
