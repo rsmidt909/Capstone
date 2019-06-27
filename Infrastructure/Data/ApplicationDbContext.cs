@@ -17,5 +17,7 @@ namespace Yawn.Data
         public DbSet<ApplicationRole> Role { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<ServiceCalls> Services { get; set; }
+        public DbSet<Checks> Check { set; get; }
     }
 }

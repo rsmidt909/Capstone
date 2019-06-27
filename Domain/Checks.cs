@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    class Checks
+    public class Checks
     {
         [Key]
         public int id { get; set; }

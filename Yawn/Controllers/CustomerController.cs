@@ -133,6 +133,18 @@ namespace Yawn.Controllers
             return customer;
         }
 
+        public void SubmitServiceForm()
+        {
+            //string poop = memo.Value
+            ServiceCalls serviceCalls = new ServiceCalls();
+            serviceCalls.customer = GetLoggedInUser();
+            serviceCalls.Memo = Request.QueryString["memo"];
+            var thing = Request.QueryString[memo];
+            var poop = thing.ToString();
+            serviceCalls.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _context.Add(serviceCalls);
+            _context.SaveChanges();
+        }
 
     }
 }
