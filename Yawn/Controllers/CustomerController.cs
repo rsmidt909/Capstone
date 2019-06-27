@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Domain;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Yawn.Data;
 
 namespace Yawn.Controllers
 {
     public class CustomerController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
+        public CustomerController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         // GET: Customer
         public ActionResult Index()
         {
-            return View();
+            Customer customer = GetLoggedInUser();
+            return View(customer);
         }
 
         // GET: Customer/Details/5
@@ -35,6 +46,9 @@ namespace Yawn.Controllers
             try
             {
                 // TODO: Add insert logic here
+                _context.Add(collection);
+                _context.SaveChanges();
+
 
                 return RedirectToAction(nameof(Index));
             }
@@ -47,6 +61,7 @@ namespace Yawn.Controllers
         // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
+            Customer customer = GetLoggedInUser();
             return View();
         }
 
@@ -55,16 +70,22 @@ namespace Yawn.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+           
+                try
+                {
+                    // TODO: Add update logic here
+
+                    Customer customer = _context.Customers.Where(c => c.id == id).FirstOrDefault();
+                _context.Update(customer);
+                _context.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                }
+                catch
+                {
+                    return View();
+                }
+            
         }
 
         // GET: Customer/Delete/5
@@ -89,5 +110,15 @@ namespace Yawn.Controllers
                 return View();
             }
         }
+
+        public Customer GetLoggedInUser()
+        {
+            
+            var currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = _context.Customers.Where(c => c.ApplicationId == currentUserId).FirstOrDefault();
+            return customer;
+        }
+
+
     }
 }
