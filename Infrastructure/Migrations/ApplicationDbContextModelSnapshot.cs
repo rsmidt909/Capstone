@@ -27,6 +27,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("ApplicationId");
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
@@ -125,15 +127,21 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ApplicationId");
+
+                    b.Property<bool>("Completed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<string>("Memo");
 
-                    b.Property<int?>("customerid");
+                    b.Property<double>("Phone");
 
                     b.HasKey("id");
-
-                    b.HasIndex("customerid");
 
                     b.ToTable("Check");
                 });
@@ -181,15 +189,21 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ApplicationId");
+
+                    b.Property<bool>("Completed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<string>("Memo");
 
-                    b.Property<int?>("customerid");
+                    b.Property<double>("Phone");
 
                     b.HasKey("id");
-
-                    b.HasIndex("customerid");
 
                     b.ToTable("Services");
                 });
@@ -291,13 +305,6 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ApplicationId");
                 });
 
-            modelBuilder.Entity("Domain.Checks", b =>
-                {
-                    b.HasOne("Domain.Customer", "customer")
-                        .WithMany()
-                        .HasForeignKey("customerid");
-                });
-
             modelBuilder.Entity("Domain.Customer", b =>
                 {
                     b.HasOne("Domain.ApplicationUser", "ApplicationUser")
@@ -307,13 +314,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.ApplicationRole", "ApplicationRole")
                         .WithMany()
                         .HasForeignKey("ApplicationRoleId");
-                });
-
-            modelBuilder.Entity("Domain.ServiceCalls", b =>
-                {
-                    b.HasOne("Domain.Customer", "customer")
-                        .WithMany()
-                        .HasForeignKey("customerid");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

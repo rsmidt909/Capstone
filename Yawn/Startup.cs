@@ -77,7 +77,7 @@ namespace Yawn
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //DataSeeder.Initialize(context, userManager,roleManager).Wait();
+            DataSeeder.Initialize(context, userManager, roleManager).Wait();
             //DataSeeder.Initialize(context, userManager,roleManager).Wait();
 
 

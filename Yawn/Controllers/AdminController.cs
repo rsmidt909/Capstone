@@ -106,9 +106,9 @@ namespace Yawn.Controllers
 
         public ActionResult Contacts()
         {
-            
+            var customer = _context.Customers.ToList();
 
-            return View();
+            return View(customer);
         }
         public ActionResult CallList()
         {
@@ -122,7 +122,6 @@ namespace Yawn.Controllers
 
         public Admin GetLoggedInUser()
         {
-
             var currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Admin admin = _context.Admins.Where(c => c.ApplicationId == currentUserId).FirstOrDefault();
             return admin;
