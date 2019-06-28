@@ -16,9 +16,9 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <form  action="SubmitServiceForm">
-                <textarea name="memo" class="ServiceForm" id="memo" runat = "server" rows="3" cols="40"></textarea>
-                <div class="form-group">
+            <form method="post" action="SubmitServiceForm" alert ="Thank you for submitting your season check!">
+                <textarea name="memo" class="memo" id="memo" runat = "server" rows="3" cols="40"></textarea>
+                <div class="form-group">                    
                     <input type="submit" value="Submit" class="btn btn-default"  />
                 </div>
             </form>

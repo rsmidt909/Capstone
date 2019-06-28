@@ -133,18 +133,32 @@ namespace Yawn.Controllers
             return customer;
         }
 
-        public void SubmitServiceForm()
+        public ActionResult SubmitServiceForm(string[] memo)
         {
-            //string poop = memo.Value
+            
             ServiceCalls serviceCalls = new ServiceCalls();
             serviceCalls.customer = GetLoggedInUser();
-            serviceCalls.Memo = Request.QueryString["memo"];
-            var thing = Request.QueryString[memo];
-            var poop = thing.ToString();
+            serviceCalls.Memo = memo[0];                                 
             serviceCalls.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Add(serviceCalls);
             _context.SaveChanges();
+            return RedirectToAction("Index");
+
         }
+
+        public ActionResult SubmitCheckForm(string[] memo)
+        {
+
+            Checks checks = new Checks();
+            checks.customer = GetLoggedInUser();
+            checks.Memo = memo[0];
+            checks.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _context.Add(checks);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
 
     }
 }
