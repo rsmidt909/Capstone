@@ -135,9 +135,12 @@ namespace Yawn.Controllers
 
         public ActionResult SubmitServiceForm(string[] memo)
         {
-            
+            Customer customer = GetLoggedInUser();
             ServiceCalls serviceCalls = new ServiceCalls();
-            serviceCalls.customer = GetLoggedInUser();
+            serviceCalls.FirstName = customer.FirstName;
+            serviceCalls.LastName = customer.LastName;
+            serviceCalls.Phone = customer.PhoneNumber;
+            serviceCalls.Address = customer.StreetAddress;
             serviceCalls.Memo = memo[0];                                 
             serviceCalls.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Add(serviceCalls);
@@ -148,9 +151,12 @@ namespace Yawn.Controllers
 
         public ActionResult SubmitCheckForm(string[] memo)
         {
-
+            Customer customer = GetLoggedInUser();
             Checks checks = new Checks();
-            checks.customer = GetLoggedInUser();
+            checks.FirstName = customer.FirstName;
+            checks.LastName = customer.LastName;
+            checks.Phone = customer.PhoneNumber;
+            checks.Address = customer.StreetAddress;
             checks.Memo = memo[0];
             checks.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Add(checks);

@@ -10,9 +10,13 @@ namespace Domain
     {
         [Key]
         public int id { get; set; }
-        public Customer customer { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public double Phone { get; set; }
+        public string Address { get; set; }
         public string Memo { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
+        public bool Completed { get; set; }
     }
 }
