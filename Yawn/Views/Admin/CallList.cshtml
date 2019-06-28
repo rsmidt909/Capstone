@@ -12,9 +12,16 @@
 {
     if (checks.Completed == false)
     {
-        <h4 class="check-list"> Customer: @checks.FirstName @checks.LastName</h4><br />
-        <h4 class="check-list"> Address: @checks.Address | Phone Number: @checks.Phone</h4><br />
-        <h4 class="check-list"> Additional Notes: @checks.Memo</h4><br />
+        <form method="post" action="CompletedCallBool" name="callComplete" value="@checks.ApplicationId">
+            <p class="check-list"> Customer: <u>@checks.FirstName</u> <u>@checks.LastName</u></p>
+            <p class="check-list"> Address: <u>@checks.Address</u> | Phone Number: <u>@checks.Phone</u></p>
+            <p class="check-list"> Number Of Systems In Home: <u>@checks.NumberOfSystems</u> | Filters: <u>@checks.Filters</u></p>
+            <p class="check-list"> Additional Notes: <u>@checks.Memo</u></p>
+            <div class="form-group">
+                <input type="submit" value="Complete" class="btn btn-default" />
+            </div>
+        </form>
+        <p>---------------------------------------------------------------------------</p>
     }
 }
 
@@ -25,8 +32,15 @@
 {
     if (serviceCalls.Completed == false)
     {
-        <h4 class="check-list"> Customer: @serviceCalls.FirstName @serviceCalls.LastName</h4><br />
-        <h4 class="check-list"> Address: @serviceCalls.Address | Phone Number: @serviceCalls.Phone</h4><br />
-        <h4 class="check-list"> Additional Notes: @serviceCalls.Memo</h4><br />
+        <form method="post" action="CompletedCallBool" name="callComplete" value="@serviceCalls.ApplicationId">
+            <p class="check-list"> Customer: <u>@serviceCalls.FirstName</u> <u>@serviceCalls.LastName</u></p>
+            <p class="check-list"> Address: <u>@serviceCalls.Address</u> | Phone Number: <u>@serviceCalls.Phone</u></p>
+            <p class="check-list"> Number Of Systems In Home: <u>@serviceCalls.NumberOfSystems</u></p>
+            <p class="check-list"> Additional Notes: <u>@serviceCalls.Memo</u></p>
+            <div class="form-group">
+                <input type="submit" value="Complete" class="btn btn-default" />
+            </div>
+        </form>
+        <p>---------------------------------------------------------------------------</p>
     }
 }

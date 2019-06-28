@@ -78,6 +78,8 @@ namespace Yawn.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    //right here make pathing to home index per role
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

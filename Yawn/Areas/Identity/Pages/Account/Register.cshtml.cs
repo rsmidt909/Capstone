@@ -118,7 +118,8 @@ namespace Yawn.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,
                     Email = Input.Email,                    
-                    RoleString = "Customer"
+                    RoleString = "Customer",
+                    
                 };
                 
                 

@@ -141,7 +141,8 @@ namespace Yawn.Controllers
             serviceCalls.LastName = customer.LastName;
             serviceCalls.Phone = customer.PhoneNumber;
             serviceCalls.Address = customer.StreetAddress;
-            serviceCalls.Memo = memo[0];                                 
+            serviceCalls.Memo = memo[0];
+            serviceCalls.NumberOfSystems = customer.NumberOfSystems;
             serviceCalls.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Add(serviceCalls);
             _context.SaveChanges();
@@ -158,6 +159,8 @@ namespace Yawn.Controllers
             checks.Phone = customer.PhoneNumber;
             checks.Address = customer.StreetAddress;
             checks.Memo = memo[0];
+            checks.Filters = customer.Filters;
+            checks.NumberOfSystems = customer.NumberOfSystems;
             checks.ApplicationId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Add(checks);
             _context.SaveChanges();
@@ -165,6 +168,7 @@ namespace Yawn.Controllers
 
         }
 
+        
 
     }
 }

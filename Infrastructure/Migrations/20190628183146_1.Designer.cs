@@ -10,7 +10,7 @@ using Yawn.Data;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190628161825_1")]
+    [Migration("20190628183146_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,11 +135,15 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("Completed");
 
+                    b.Property<string>("Filters");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
                     b.Property<string>("Memo");
+
+                    b.Property<int>("NumberOfSystems");
 
                     b.Property<double>("Phone");
 
@@ -202,6 +206,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("Memo");
+
+                    b.Property<int>("NumberOfSystems");
 
                     b.Property<double>("Phone");
 

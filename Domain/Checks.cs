@@ -15,6 +15,8 @@ namespace Domain
         public double Phone { get; set; }
         public string Address { get; set; }
         public string Memo { get; set; }
+        public string Filters { get; set; }
+        public int NumberOfSystems { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public bool Completed { get; set; }

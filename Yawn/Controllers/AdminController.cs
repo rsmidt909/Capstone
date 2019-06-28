@@ -126,5 +126,14 @@ namespace Yawn.Controllers
             Admin admin = _context.Admins.Where(c => c.ApplicationId == currentUserId).FirstOrDefault();
             return admin;
         }
+
+        public ActionResult CompletedCallBool(string appId)
+        {
+            Checks checks = _context.Check.Where(a => a.ApplicationId == appId).FirstOrDefault();
+            checks.Completed = true;
+            _context.SaveChanges();
+
+            return RedirectToAction("CallList");
+        }
     }
 }

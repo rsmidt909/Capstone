@@ -133,11 +133,15 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("Completed");
 
+                    b.Property<string>("Filters");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
                     b.Property<string>("Memo");
+
+                    b.Property<int>("NumberOfSystems");
 
                     b.Property<double>("Phone");
 
@@ -200,6 +204,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("Memo");
+
+                    b.Property<int>("NumberOfSystems");
 
                     b.Property<double>("Phone");
 

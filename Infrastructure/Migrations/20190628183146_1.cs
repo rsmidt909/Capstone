@@ -61,6 +61,8 @@ namespace Infrastructure.Migrations
                     Phone = table.Column<double>(nullable: false),
                     Address = table.Column<string>(nullable: true),
                     Memo = table.Column<string>(nullable: true),
+                    Filters = table.Column<string>(nullable: true),
+                    NumberOfSystems = table.Column<int>(nullable: false),
                     ApplicationId = table.Column<string>(nullable: true),
                     Completed = table.Column<bool>(nullable: false)
                 },
@@ -80,6 +82,7 @@ namespace Infrastructure.Migrations
                     Phone = table.Column<double>(nullable: false),
                     Address = table.Column<string>(nullable: true),
                     Memo = table.Column<string>(nullable: true),
+                    NumberOfSystems = table.Column<int>(nullable: false),
                     ApplicationId = table.Column<string>(nullable: true),
                     Completed = table.Column<bool>(nullable: false)
                 },
