@@ -30,6 +30,9 @@ namespace Yawn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            //register which Iconfiguation instance my AWSOptionsbind against
+            services.Configure<AWSOptions>(Configuration.GetSection("AWSLexConfiguration"));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -48,6 +51,12 @@ namespace Yawn
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(300);
+                options.CookieHttpOnly = true; // use new cookie.httpOnly
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

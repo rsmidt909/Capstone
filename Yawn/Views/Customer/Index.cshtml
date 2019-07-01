@@ -1,9 +1,11 @@
-﻿@model Domain.Customer
+﻿@*@model Domain.Customer*@
+@*@model  IEnumerable<Domain.ChatBotMessage>*@
+@model  Domain.CustomerChat
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Welcome @Model.FirstName</h2>
+<h2>Welcome @Model.Customer.FirstName</h2>
 
 <center>
     <h3>Is something wrong with your system? Click on the button below to get started!</h3>
@@ -13,3 +15,22 @@
     <h3>Just need your seasonal check up? Click on the button below to get started!</h3>
     <li><a asp-area="" asp-controller="Customer" asp-action="Checks" >Seasonal Check</a></li>
 </center>
+
+
+<div id="conversation">
+    <dl>
+        @foreach (var ChatMsg in Model.ChatBotMessage)
+        {
+            if (ChatMsg.MessageType == Domain.BotMessageType.UserMessage)
+            {
+                <dt class="userRequest">@ChatMsg.ChatMessage</dt>
+            }
+            else
+            {
+                <dd class="lexResponse">@ChatMsg.ChatMessage</dd>
+            }
+
+        }
+    </dl>
+</div>
+
