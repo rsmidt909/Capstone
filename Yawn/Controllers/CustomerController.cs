@@ -4,10 +4,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Domain;
+using System.Text.Encodings.Web;
+using System.Net.Http;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Yawn.Data;
+using Yawn.DataService;
 
 namespace Yawn.Controllers
 {
@@ -15,15 +19,29 @@ namespace Yawn.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
-        public CustomerController(ApplicationDbContext context)
+        //Collection of ChatBot Messages
+
+        //static Dictionary<string, string> lexSessionData = new Dictionary<string, string>();
+        private readonly IAWSLexService awsLexSvc;
+        private ISession userHttpSession;
+        private Dictionary<string, string> lexSessionData;
+        private List<ChatBotMessage> botMessages;
+        private string botMsgKey = "ChatBotMessages",
+                       botAtrribsKey = "LexSessionData",
+                       userSessionID = String.Empty;
+        public CustomerController(ApplicationDbContext context,IAWSLexService awsLexService)
         {
             _context = context;
+            awsLexSvc = awsLexService;
+
         }
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(List<ChatBotMessage> messages)
         {
-            Customer customer = GetLoggedInUser();
-            return View(customer);
+            CustomerChat customerChat = new CustomerChat();
+            customerChat.Customer = GetLoggedInUser();
+            customerChat.ChatBotMessage = messages;
+            return View(customerChat);
         }
 
         // GET: Customer/Details/5
@@ -168,7 +186,36 @@ namespace Yawn.Controllers
 
         }
 
-        
+        public IActionResult ClearBot()
+        {
+
+        }
+
+        public async Task<IActionResult> ProcessChatMessage(string userMsg)
+        {
+            userHttpSession = HttpContext.Session;
+            userSessionID = userHttpSession.Id;
+
+            botMessages = userHttpSession.Get<List<ChatBotMessage>>(botMsgKey) ?? new List<ChatBotMessage>();
+            lexSessionData = userHttpSession.Get<Dictionary<string, string>>(botAtrribsKey) ?? new Dictionary<string, string>();
+            //No messages ,, reutnr current view
+
+            if (String.IsNullOrEmpty(userMsg)) return View("Index", botMessages);
+            //we got a message
+            botMessages.Add(new ChatBotMessage()
+            { MessageType = BotMessageType.UserMessage, ChatMessage = userMsg });
+
+            //post to page first?
+
+            var lexResponse = await awsLexSvc.SendTextMsgToLex(userSessionID, lexSessionData, userMsg);
+            lexSessionData = lexResponse.SessionAttributes;
+            botMessages.Add(new ChatBotMessage()
+            { MessageType = BotMessageType.LexMessage, ChatMessage = lexResponse.Message });
+            userHttpSession.Set<List<ChatBotMessage>>(botMsgKey, botMessages);
+            userHttpSession.Set<Dictionary<string, string>>(botAtrribsKey, lexSessionData);
+
+            return View("Index", botMessages);
+        }
 
     }
 }

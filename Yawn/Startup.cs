@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Domain;
 using Infrastructure.Data;
+using Yawn.DataService;
 
 namespace Yawn
 {
@@ -33,6 +34,7 @@ namespace Yawn
             services.AddOptions();
             //register which Iconfiguation instance my AWSOptionsbind against
             services.Configure<AWSOptions>(Configuration.GetSection("AWSLexConfiguration"));
+            services.AddScoped<IAWSLexService, AWSLexService>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Amazon.Extensions.CognitoAuthentication" Version="1.0.3" />
+    <PackageReference Include="AWSSDK.Core" Version="3.3.103.5" />
     <PackageReference Include="AWSSDK.Lex" Version="3.3.100.41" />
     <PackageReference Include="Microsoft.Bot.Builder" Version="4.4.5" />
   </ItemGroup>

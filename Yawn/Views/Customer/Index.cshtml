@@ -34,3 +34,11 @@
     </dl>
 </div>
 
+@using (Html.BeginForm("ProcessChatMessage", "Customer", FormMethod.Post, htmlAttributes))
+{
+    <div class="form-control">
+        <input class="form-control" name="userMsg" type="text"placeholder="Enter Chat Here" style="float:left;height:40px;z-index:-1"autofocus/>
+        <a asp-action="ClearBot"class="btn btn-default" role="button" style="background-color :blue;float:right;color:yellow">Clear</a>
+    </div>
+}
+
