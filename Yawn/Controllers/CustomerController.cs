@@ -188,7 +188,15 @@ namespace Yawn.Controllers
 
         public IActionResult ClearBot()
         {
+            userHttpSession = HttpContext.Session;
+            userHttpSession.Clear();
+            botMessages = new List<ChatBotMessage>();
+            lexSessionData = new Dictionary<string, string>();
+            userHttpSession.Set<List<ChatBotMessage>>(botMsgKey, botMessages);
+            userHttpSession.Set<Dictionary<string, string>>(botAtrribsKey, lexSessionData);
 
+            awsLexSvc.Dispose();
+            return View("Index", botMessages);
         }
 
         public async Task<IActionResult> ProcessChatMessage(string userMsg)

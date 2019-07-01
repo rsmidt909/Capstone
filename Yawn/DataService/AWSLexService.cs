@@ -72,7 +72,7 @@ namespace Yawn.DataService
 
             //Get credentials from Cognito
             awsCredentials = new CognitoAWSCredentials(
-                                _awsOptions.CognitioPoolID, // Identity pool ID
+                                _awsOptions.CognitoPoolID, // Identity pool ID
                                 svcRegionEndpoint); // Region
 
             //Instantiate Lex Client with Region

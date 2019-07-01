@@ -7,7 +7,7 @@ using Amazon.Lex.Model;
 
 namespace Yawn.DataService
 {
-    public interface IAWSLexService
+    public interface IAWSLexService:IDisposable
     {
         string PostContentToLex(string messageToSend);
         Task<PostTextResponse> SendTextMsgToLex(string messageToSend, Dictionary<string, string> lexSessionAttributes, string sessionId);

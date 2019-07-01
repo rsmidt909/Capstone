@@ -9,7 +9,7 @@ namespace Yawn
     public class AWSOptions
     {
         public AWSOptions() { }
-        public string CognitioPoolID { get; set; }
+        public string CognitoPoolID { get; set; }
         public string LexBotName { get; set; }
         public string LexRole { get; set; }
         public string LexBotAlias { get; set; }

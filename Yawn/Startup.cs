@@ -56,7 +56,7 @@ namespace Yawn
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(300);
-                options.CookieHttpOnly = true; // use new cookie.httpOnly
+                options.Cookie.HttpOnly = true; // use new cookie.httpOnly
 
             });
         }
@@ -78,7 +78,7 @@ namespace Yawn
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseMvc(routes =>
