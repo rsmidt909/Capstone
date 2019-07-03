@@ -6,8 +6,7 @@
 }
     <head>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.41.0.min.js"></script>
-        <script src="~/js/chatbot/jquery-1.10.2.js" type="text/javascript"></script>
-        <script src="~/js/chatbot/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+
     </head>
 <h2>Welcome @Model.Customer.FirstName</h2>
 
@@ -38,10 +37,10 @@
     </dl>
 </div>
 
-@using (Html.BeginForm("ProcessChatMessage", "Customer"))
+@using (Html.BeginForm("GetChatMessage", "Customer"))
 {
 
-    <input type="text" size="80" name="userMsg" placeholder="Enter Text Here" />
+    <input type="text" size="80" name="userMessage" placeholder="Enter Text Here" />
     @*<div class="form-control">
             <input class="form-control" name="userMsg" type="text"placeholder="Enter Chat Here" style="float:left;height:40px;z-index:-1"autofocus/>
             <a asp-action="ClearBot"class="btn btn-default" role="button" style="background-color :blue;float:right;color:yellow">Clear</a>

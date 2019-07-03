@@ -14,8 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Domain;
 using Infrastructure.Data;
-using Yawn.DataService;
 using Microsoft.Extensions.Logging;
+using Application;
 
 namespace Yawn
 {

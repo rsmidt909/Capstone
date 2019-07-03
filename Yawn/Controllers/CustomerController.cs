@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Yawn.Data;
-using Yawn.DataService;
+using Application;
 
 namespace Yawn.Controllers
 {
@@ -202,6 +202,7 @@ namespace Yawn.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GetChatMessage(string userMessage)
+
         {
             //Get user session and chat info
             userHttpSession = HttpContext.Session;

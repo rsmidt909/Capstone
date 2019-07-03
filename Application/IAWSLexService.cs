@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Amazon.Lex.Model;
 
-namespace Yawn.DataService
+namespace Application
 {
     public interface IAWSLexService:IDisposable
     {

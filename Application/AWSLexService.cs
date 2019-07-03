@@ -12,9 +12,9 @@ using Amazon.SecurityToken.Model;
 using Amazon.Lex;
 using Amazon.Lex.Model;
 using System.IO;
+using Domain;
 
-
-namespace Yawn.DataService
+namespace Application
 {
     public class AWSLexService : IAWSLexService
     {
@@ -88,7 +88,7 @@ namespace Yawn.DataService
         }
         public async Task<PostTextResponse> SendTextMsgToLex(string messageToSend, string sessionId)
         {
-            PostTextResponse lexTextResponse;
+            PostTextResponse postTextResponse;
             PostTextRequest lexTextRequest = new PostTextRequest()
             {
                 BotAlias = _awsOptions.LexBotAlias,
@@ -100,14 +100,14 @@ namespace Yawn.DataService
 
             try
             {
-                lexTextResponse = await awsLexClient.PostTextAsync(lexTextRequest);
+               postTextResponse = await awsLexClient.PostTextAsync(lexTextRequest);
             }
             catch (Exception ex)
             {
                 throw new BadRequestException(ex);
             }
 
-            return lexTextResponse;
+            return new PostTextResponse();
         }
 
  
