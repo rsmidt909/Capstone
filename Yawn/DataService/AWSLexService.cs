@@ -68,7 +68,7 @@ namespace Yawn.DataService
             Amazon.RegionEndpoint svcRegionEndpoint;
 
             //Grab region for Lex Bot services
-            svcRegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(_awsOptions.LexBotRegion);
+            svcRegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(_awsOptions.BotRegion);
 
             //Get credentials from Cognito
             awsCredentials = new CognitoAWSCredentials(
@@ -79,10 +79,6 @@ namespace Yawn.DataService
             awsLexClient = new AmazonLexClient(awsCredentials, svcRegionEndpoint);
         }
 
-        public async Task<string> PostToLex(string messageToSend)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<PostTextResponse> SendTextMsgToLex(string messageToSend, Dictionary<string, string> lexSessionAttributes, string sessionId)
         {
@@ -114,19 +110,8 @@ namespace Yawn.DataService
             return lexTextResponse;
         }
 
-        /**
-         * Later to Implement receiving Voice input for the Lex Bot
-         * with Amazon Lex PostContent and Streams
-         * **/
-        public Task<Stream> SendAudioMsgToLex(Stream audioToSend)
-        {
-            throw new NotImplementedException();
-        }
+ 
 
-        public string PostContentToLex(string messageToSend)
-        {
-            throw new NotImplementedException();
-        }
 
         #region Cognito STS Code
         /**
@@ -198,6 +183,11 @@ namespace Yawn.DataService
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
+        }
+
+        public string PostContentToLex(string messageToSend)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

@@ -186,44 +186,59 @@ namespace Yawn.Controllers
 
         }
 
-        public IActionResult ClearBot()
-        {
-            userHttpSession = HttpContext.Session;
-            userHttpSession.Clear();
-            botMessages = new List<ChatBotMessage>();
-            lexSessionData = new Dictionary<string, string>();
-            userHttpSession.Set<List<ChatBotMessage>>(botMsgKey, botMessages);
-            userHttpSession.Set<Dictionary<string, string>>(botAtrribsKey, lexSessionData);
+        //public IActionResult ClearBot()
+        //{
+        //    userHttpSession = HttpContext.Session;
+        //    userHttpSession.Clear();
+        //    botMessages = new List<ChatBotMessage>();
+        //    lexSessionData = new Dictionary<string, string>();
+        //    userHttpSession.Set<List<ChatBotMessage>>(botMsgKey, botMessages);
+        //    userHttpSession.Set<Dictionary<string, string>>(botAtrribsKey, lexSessionData);
 
-            awsLexSvc.Dispose();
-            return View("Index", botMessages);
-        }
-
-        public async Task<IActionResult> ProcessChatMessage(string userMsg)
+        //    awsLexSvc.Dispose();
+        //    return View("Index", botMessages);
+        //}
+        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetChatMessage(string userMessage)
         {
+            //Get user session and chat info
             userHttpSession = HttpContext.Session;
             userSessionID = userHttpSession.Id;
-
             botMessages = userHttpSession.Get<List<ChatBotMessage>>(botMsgKey) ?? new List<ChatBotMessage>();
             lexSessionData = userHttpSession.Get<Dictionary<string, string>>(botAtrribsKey) ?? new Dictionary<string, string>();
-            //No messages ,, reutnr current view
 
-            if (String.IsNullOrEmpty(userMsg)) return View("Index", botMessages);
-            //we got a message
+            //No message was provided, return to current view
+            if (String.IsNullOrEmpty(userMessage)) return View("Index", botMessages);
+
+            //A Valid Message exists, Add to page and allow Lex to process
             botMessages.Add(new ChatBotMessage()
-            { MessageType = BotMessageType.UserMessage, ChatMessage = userMsg });
+            { MsgType = MessageType.UserMessage, ChatMessage = userMessage });
 
-            //post to page first?
+            await postUserData(botMessages);
 
-            var lexResponse = await awsLexSvc.SendTextMsgToLex(userSessionID, lexSessionData, userMsg);
+            //Call Amazon Lex with Text, capture response
+            var lexResponse = await awsLexSvc.SendTextMsgToLex(userMessage, lexSessionData, userSessionID);
+
             lexSessionData = lexResponse.SessionAttributes;
             botMessages.Add(new ChatBotMessage()
-            { MessageType = BotMessageType.LexMessage, ChatMessage = lexResponse.Message });
+            { MsgType = MessageType.LexMessage, ChatMessage = lexResponse.Message });
+
+            //Add updated botMessages and lexSessionData object to Session
             userHttpSession.Set<List<ChatBotMessage>>(botMsgKey, botMessages);
             userHttpSession.Set<Dictionary<string, string>>(botAtrribsKey, lexSessionData);
 
             return View("Index", botMessages);
         }
+
+        public async Task<IActionResult> postUserData(List<ChatBotMessage> messages)
+        {
+            //testing
+            return await Task.Run(() => Index(messages));
+        }
+
+        
 
     }
 }

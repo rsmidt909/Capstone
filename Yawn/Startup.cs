@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Domain;
 using Infrastructure.Data;
 using Yawn.DataService;
+using Microsoft.Extensions.Logging;
 
 namespace Yawn
 {
@@ -33,7 +34,7 @@ namespace Yawn
         {
             services.AddOptions();
             //register which Iconfiguation instance my AWSOptionsbind against
-            services.Configure<AWSOptions>(Configuration.GetSection("AWSLexConfiguration"));
+            services.Configure<AWSOptions>(Configuration.GetSection("AWSConfiguration"));
             services.AddScoped<IAWSLexService, AWSLexService>();
             services.Configure<CookiePolicyOptions>(options =>
             {

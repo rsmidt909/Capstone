@@ -4,7 +4,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+    <head>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.41.0.min.js"></script>
+        <script src="~/js/chatbot/jquery-1.10.2.js" type="text/javascript"></script>
+        <script src="~/js/chatbot/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+    </head>
 <h2>Welcome @Model.Customer.FirstName</h2>
 
 <center>
@@ -17,11 +21,11 @@
 </center>
 
 
-<div id="conversation">
+<div id="conversation"style="width: 400px; height: 450px; border: 2px solid gray;background-color: #ffffff; overflow: scroll;object-position:bottom">
     <dl>
         @foreach (var ChatMsg in Model.ChatBotMessage)
         {
-            if (ChatMsg.MessageType == Domain.BotMessageType.UserMessage)
+            if (ChatMsg.MsgType == Domain.MessageType.UserMessage)
             {
                 <dt class="userRequest">@ChatMsg.ChatMessage</dt>
             }
@@ -29,7 +33,7 @@
             {
                 <dd class="lexResponse">@ChatMsg.ChatMessage</dd>
             }
-
+            
         }
     </dl>
 </div>
