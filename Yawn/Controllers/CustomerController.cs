@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Yawn.Data;
-using Application;
+
 
 namespace Yawn.Controllers
 {
@@ -19,28 +19,21 @@ namespace Yawn.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
-        //Collection of ChatBot Messages
+       
 
-        //static Dictionary<string, string> lexSessionData = new Dictionary<string, string>();
-        private readonly IAWSLexService awsLexSvc;
-        private ISession userHttpSession;
-        private Dictionary<string, string> lexSessionData;
-        private List<ChatBotMessage> botMessages;
-        private string botMsgKey = "ChatBotMessages",
-                       botAtrribsKey = "LexSessionData",
-                       userSessionID = String.Empty;
-        public CustomerController(ApplicationDbContext context,IAWSLexService awsLexService)
+        
+        public CustomerController(ApplicationDbContext context)
         {
             _context = context;
-            awsLexSvc = awsLexService;
+            
 
         }
         // GET: Customer
-        public ActionResult Index(List<ChatBotMessage> messages)
+        public ActionResult Index()
         {
             CustomerChat customerChat = new CustomerChat();
             customerChat.Customer = GetLoggedInUser();
-            customerChat.ChatBotMessage = messages;
+            
             return View(customerChat);
         }
 

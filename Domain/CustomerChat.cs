@@ -7,6 +7,6 @@ namespace Domain
     public class CustomerChat
     {
         public Customer Customer { get; set; }
-        public IEnumerable<ChatBotMessage> ChatBotMessage { get; set; }
+        
     }
 }

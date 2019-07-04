@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Domain;
 using Infrastructure.Data;
 using Microsoft.Extensions.Logging;
-using Application;
 
 namespace Yawn
 {
@@ -34,8 +33,7 @@ namespace Yawn
         {
             services.AddOptions();
             //register which Iconfiguation instance my AWSOptionsbind against
-            services.Configure<AWSOptions>(Configuration.GetSection("AWSConfiguration"));
-            services.AddScoped<IAWSLexService, AWSLexService>();
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -90,7 +88,7 @@ namespace Yawn
             });
 
             DataSeeder.Initialize(context, userManager, roleManager).Wait();
-            //DataSeeder.Initialize(context, userManager,roleManager).Wait();
+            
 
 
 
