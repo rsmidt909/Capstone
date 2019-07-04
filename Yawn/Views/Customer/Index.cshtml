@@ -18,9 +18,12 @@
     <h3>Just need your seasonal check up? Click on the button below to get started!</h3>
     <li><a asp-area="" asp-controller="Customer" asp-action="Checks">Seasonal Check</a></li>
 </center>
+<iframe allow="microphone;"
+        width="350"
+        height="430"
+        src="https://console.dialogflow.com/api-client/demo/embedded/c5f01535-c204-42fb-8b65-5716f40b986d"></iframe>
 
-
-<div id="conversation"style="width: 400px; height: 450px; border: 2px solid gray;background-color: #ffffff; overflow: scroll;object-position:bottom">
+@*<div id="conversation"style="width: 400px; height: 450px; border: 2px solid gray;background-color: #ffffff; overflow: scroll;object-position:bottom">
     <dl>
         @foreach (var ChatMsg in Model.ChatBotMessage)
         {
@@ -35,7 +38,7 @@
             
         }
     </dl>
-</div>
+</div>*@
 
 @using (Html.BeginForm("GetChatMessage", "Customer"))
 {

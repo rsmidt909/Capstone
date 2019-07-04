@@ -13,6 +13,11 @@ using Amazon.Lex;
 using Amazon.Lex.Model;
 using System.IO;
 using Domain;
+using Infrastructure;
+using Yawn.Data;
+using System.Security.Claims;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Application
 {
@@ -28,7 +33,7 @@ namespace Application
 
         private CognitoAWSCredentials awsCredentials;
         private AmazonLexClient awsLexClient;
-
+        private readonly ApplicationDbContext _context;
         //private static CognitoAWSCredentials awsCredentials;
         public AWSLexService(IOptions<AWSOptions> awsOptions)
         {
@@ -80,27 +85,27 @@ namespace Application
         }
 
 
-        public async Task<PostTextResponse> SendTextMsgToLex(string messageToSend, Dictionary<string, string> lexSessionAttributes, string sessionId)
+        public async Task<PostTextResponse> SendTextMsgToLex(string messageToSend, Dictionary<string, string> lexSessionAttributes, string userId)
         {
             _lexSessionAttribs = lexSessionAttributes;
-            return await SendTextMsgToLex(messageToSend, sessionId);
+            return await SendTextMsgToLex(messageToSend, userId);
 
         }
-        public async Task<PostTextResponse> SendTextMsgToLex(string messageToSend, string sessionId)
+        public async Task<PostTextResponse> SendTextMsgToLex(string messageToSend, string userId)
         {
+            
             PostTextResponse postTextResponse;
             PostTextRequest lexTextRequest = new PostTextRequest()
             {
                 BotAlias = _awsOptions.LexBotAlias,
                 BotName = _awsOptions.LexBotName,
-                UserId = sessionId,
-                InputText = messageToSend,
-                SessionAttributes = _lexSessionAttribs
+                UserId = userId,
+                InputText = "check"
             };
 
             try
             {
-               postTextResponse = await awsLexClient.PostTextAsync(lexTextRequest);
+                postTextResponse = await awsLexClient.PostTextAsync(lexTextRequest);
             }
             catch (Exception ex)
             {
@@ -110,7 +115,7 @@ namespace Application
             return new PostTextResponse();
         }
 
- 
+
 
 
         #region Cognito STS Code
