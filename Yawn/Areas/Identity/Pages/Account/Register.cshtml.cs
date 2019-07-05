@@ -121,13 +121,14 @@ namespace Yawn.Areas.Identity.Pages.Account
                     RoleString = "Customer",
                     
                 };
-                
+
                 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var role2 = "Customer";
                     _logger.LogInformation("User created a new account with password.");
-
+                    await _userManager.AddToRoleAsync(user, role2);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",

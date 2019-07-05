@@ -22,8 +22,8 @@ namespace Infrastructure.Data
 
             string role1 = "Admin";
             string desc1 = "This is the Administrator role";
-            //string role2 = "Member";
-            //string desc2 = "This is the Member role";
+            string role2 = "Customer";
+            string desc2 = "This is the Customer role";
 
             string password = "Password1!";
 
@@ -31,10 +31,10 @@ namespace Infrastructure.Data
             {
                 await roleManager.CreateAsync(new ApplicationRole(role1, desc1, DateTime.Now));
             }
-            //if (await roleManager.FindByNameAsync(role2) == null)
-            //{
-            //    await roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
-            //}
+            if (await roleManager.FindByNameAsync(role2) == null)
+            {
+                await roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
+            }
 
             if (await userManager.FindByNameAsync("wes@test.com") == null)            
             {
@@ -52,7 +52,7 @@ namespace Infrastructure.Data
                     await userManager.AddPasswordAsync(user, password);
                     await userManager.AddToRoleAsync(user, role1);
                 }
-
+                
 
                 adminId1 = user.Id;
 
@@ -63,6 +63,8 @@ namespace Infrastructure.Data
                     Email = "wes@test.com",
                     ApplicationId = user.Id
                 };
+                
+                
                 context.Admins.Add(admin);
                 context.SaveChanges();
                 context.Customers.Add(
