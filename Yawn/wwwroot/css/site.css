@@ -3,6 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:lightgrey;
 }
 
 /* Wrapping element */
@@ -29,9 +30,46 @@ body {
 }
 
 /* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
+/*@media screen and (max-width: 767px) {
+     Hide captions 
     .carousel-caption {
         display: none;
     }
+}*/
+:root {
+    --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+    padding-top: var(--jumbotron-padding-y);
+    padding-bottom: var(--jumbotron-padding-y);
+    margin-bottom: 0;
+    background-color: navy;
+}
+
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: calc(var(--jumbotron-padding-y) * 2);
+        padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+    }
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 100;
+    font-family:Judith;
+    
+}
+li{
+    font-size:20px;
+}
+#contactinfo{
+    padding-top:40px;
+    font-size:18px;
+}
+#carrierPic{
+    padding-bottom:40px;
 }
